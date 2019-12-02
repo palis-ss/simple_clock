@@ -1,0 +1,5 @@
+MDK-ARM/simple_clock/
+*.uvguix.*
+*.uvoptx
+*.lst
+*.scvd
