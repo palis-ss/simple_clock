@@ -1,7 +1,7 @@
 {
     "Header": {
         "Comment": "All values are metric (mm)",
-        "CreationDate": "2019-12-12T12:05:30Z",
+        "CreationDate": "2019-12-15T15:09:11Z",
         "GenerationSoftware": {
             "Application": "EAGLE",
             "Vendor": "Autodesk",
@@ -17,7 +17,7 @@
         },
         "Owner": "Palis Ratanaswasd <roadhazard@gmail.com>",
         "Size": {
-            "X": 76,
+            "X": 75.5,
             "Y": 70.7
         }
     }

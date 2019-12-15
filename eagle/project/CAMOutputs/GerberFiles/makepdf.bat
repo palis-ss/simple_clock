@@ -1,0 +1,1 @@
+Gerber2pdf -output=etching -page_size=A4 profile.gbr -mirror copper_top.gbr silkscreen_top.gbr soldermask_top.gbr -nomirror copper_bottom.gbr silkscreen_bottom.gbr soldermask_bottom.gbr
