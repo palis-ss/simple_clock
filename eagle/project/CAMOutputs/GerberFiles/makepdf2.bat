@@ -1,1 +1,0 @@
-Gerber2pdf -output=render -page_size=A4 -combine -nomirror -strokes2fills -colour=0,98,51 profile.gbr -colour=235,138,106 copper_top.gbr -colour=255,255,255 silkscreen_top.gbr -combine -mirror -strokes2fills -colour=0,98,51 profile.gbr -colour=235,138,106 copper_bottom.gbr -colour=255,255,255 silkscreen_bottom.gbr
