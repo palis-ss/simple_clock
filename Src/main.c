@@ -70,6 +70,7 @@ DMA_HandleTypeDef hdma_usart1_rx;
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 RTC_TimeTypeDef sTime1 = {0};
+RTC_DateTypeDef sDate1 = {0};
 
 uint32_t kdtick[NUM_BUTTONS] = {0}, lasttick = 0;
 uint8_t state = STATE_NORMAL;
@@ -102,7 +103,7 @@ void DisplayTime(RTC_TimeTypeDef t)
 		SevenSegment_SetDigit(2, 15);
 }
 
-void UpdateTime(uint8_t digittoset)
+void IncTimeDigit(uint8_t digittoset)
 {
 	uint8_t num0 = 0;
 	
@@ -162,7 +163,7 @@ int main(void)
 	uint32_t nowtick, updatetick = 0;
 	uint8_t digittoset = 0;
 	RTC_TimeTypeDef newtime;
-	//RTC_DateTypeDef sDate1;
+	RTC_DateTypeDef newdate;
 	
   /* USER CODE END 1 */
   
@@ -260,6 +261,7 @@ int main(void)
 				{
 				case 1:  // hour unit
 					HAL_RTC_GetTime(&hrtc, &sTime1, RTC_FORMAT_BIN);
+					HAL_RTC_GetDate(&hrtc, &sDate1, RTC_FORMAT_BIN);
 				
 					SevenSegment_SetPeriod(3, 1);					
 					break;
@@ -314,7 +316,7 @@ int main(void)
 					
 				if(digittoset > 0)
 				{
-					UpdateTime(digittoset);						
+					IncTimeDigit(digittoset);						
 					DisplayTime(sTime1);							
 					HAL_Delay(200);
 				}
@@ -325,7 +327,7 @@ int main(void)
 				// set time
 				if(digittoset > 0)
 				{
-					UpdateTime(digittoset);
+					IncTimeDigit(digittoset);
 					DisplayTime(sTime1);
 				}
 			
@@ -340,6 +342,7 @@ int main(void)
 			if(digittoset == 0)
 			{
 				HAL_RTC_GetTime(&hrtc, &newtime, RTC_FORMAT_BIN);
+				HAL_RTC_GetDate(&hrtc, &newdate, RTC_FORMAT_BIN);
 				
 				if(newtime.Hours != sTime1.Hours || newtime.Minutes!=sTime1.Minutes || newtime.Seconds!=sTime1.Seconds)
 				{
@@ -350,8 +353,8 @@ int main(void)
 					updatetick = nowtick;
 					SevenSegment_SetPeriod(6, 1);
 					
-					//sprintf(s, "%d:%d:%d\r\n", sTime1.Hours, sTime1.Minutes, sTime1.Seconds);				
-					//CDC_Transmit_FS(s, strlen(s));
+					sprintf(s, "%d:%d:%d\r\n", sTime1.Hours, sTime1.Minutes, sTime1.Seconds);				
+					CDC_Transmit_FS(s, strlen(s));
 				}
 				
 				if(nowtick - updatetick >= 500)
@@ -374,11 +377,11 @@ void SystemClock_Config(void)
 
   /** Initializes the CPU, AHB and APB busses clocks 
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE|RCC_OSCILLATORTYPE_LSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.HSEPredivValue = RCC_HSE_PREDIV_DIV1;
+  RCC_OscInitStruct.LSEState = RCC_LSE_ON;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL9;
@@ -400,7 +403,7 @@ void SystemClock_Config(void)
     Error_Handler();
   }
   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_RTC|RCC_PERIPHCLK_USB;
-  PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSI;
+  PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
   PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_PLL_DIV1_5;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
@@ -442,7 +445,8 @@ static void MX_RTC_Init(void)
 
   /** Initialize RTC and set the Time and Date 
   */
-  sTime.Hours = 0;
+	/* 
+  sTime.Hours = 12;
   sTime.Minutes = 0;
   sTime.Seconds = 0;
 
@@ -459,6 +463,7 @@ static void MX_RTC_Init(void)
   {
     Error_Handler();
   }
+	*/
   /* USER CODE BEGIN RTC_Init 2 */
 
   /* USER CODE END RTC_Init 2 */

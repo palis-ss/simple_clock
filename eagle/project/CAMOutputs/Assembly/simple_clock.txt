@@ -1,4 +1,4 @@
-Partlist exported from D:/projects/Github/ARM/simple_clock/eagle/project/simple_clock.sch at 12/28/2019 10:52 PM
+Partlist exported from D:/projects/Github/ARM/simple_clock/eagle/project/simple_clock.sch at 12/31/2019 8:44 PM
 
 Qty Value          Device         Package        Parts    Description                                                                  DESCRIPTION                                                      MF    MPN        OC_FARNELL OC_NEWARK POPULARITY SPICEPREFIX
 2                  PINHD-1X2      1X02           JP1, JP3 PIN HEADER                                                                                                                                                                          98                    
