@@ -3,3 +3,5 @@ MDK-ARM/simple_clock/
 *.uvoptx
 *.lst
 *.scvd
+/Debug
+/Release

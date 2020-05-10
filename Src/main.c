@@ -445,8 +445,7 @@ static void MX_RTC_Init(void)
 
   /** Initialize RTC and set the Time and Date 
   */
-	/* 
-  sTime.Hours = 12;
+  sTime.Hours = 0;
   sTime.Minutes = 0;
   sTime.Seconds = 0;
 
@@ -463,7 +462,6 @@ static void MX_RTC_Init(void)
   {
     Error_Handler();
   }
-	*/
   /* USER CODE BEGIN RTC_Init 2 */
 
   /* USER CODE END RTC_Init 2 */
